@@ -14,7 +14,7 @@ This returns a string shortly followed by some random bytes and then disconnects
 After examing this data, the first 2 bytes after the introduction of every transmission is `0x78 0x9c` and this is the file signature of zlib compression
 
 Lets dig into that.
-`nc 34.217.107.134 31000 | tail -n +2 | zlib-flate u-uncompress > log`
+`nc 34.217.107.134 31000 | tail -n +2 | zlib-flate -uncompress > log`
 
 Now we have a string that seems to be HEX. It's not ASCII or BASE64 though. 
 
