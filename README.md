@@ -4,14 +4,14 @@
 Kool and HiZ Gang have been working on some new beatz, but they are afraid someone will steal their lyrics before they have a chance to lay down their new tracks.
 They said they would be communicating at 34.217.107.134 on port 31000 but there does not seem to be anything there. 
 Can you intercept their lyrics or is their disco funk secure?
-
+================================================================
 
 So the first step was to listen to the port with netcat. 
 `nc 34.217.107.134 31000`
 This returns a string shortly followed by some random bytes and then disconnects. Repeated connections return different data after the introduction. Lets try logging the output.
 `nc 34.217.107.134 31000 > log`
 
-After examing this data, the first 2 bytes after the introduction of every transmission is 0x78 0x9c and this is the file signature of zlib compression
+After examing this data, the first 2 bytes after the introduction of every transmission is `0x78 0x9c` and this is the file signature of zlib compression
 
 Lets dig into that.
 `nc 34.217.107.134 31000 | tail -n +2 | zlib-flate u-uncompress > log`
